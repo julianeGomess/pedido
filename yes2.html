@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Mais uma coisinha...</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <a href="https://ibb.co/BVKWNgck"><img src="https://i.ibb.co/BVKWNgck/Whats-App-Image-2025-05-27-at-14-12-50.jpg" alt="Whats-App-Image-2025-05-27-at-14-12-50" border="0"></a>
+    <h1>SEMANA QUE VEM NÉ 😑?</h1>
+    <div class="buttons">
+      <button onclick="final()">Prometo!</button>
+      <button id="nao2">Não posso prometer...</button>
+    </div>
+  </div>
+
+  <script>
+    function final() {
+      alert('Você é a melhor pessoa do mundo, TE AMAMOS! 💖');
+    }
+
+    const botaoNao = document.getElementById('nao2');
+
+    botaoNao.addEventListener('mouseover', () => {
+      const i = Math.floor(Math.random() * 300);
+      const j = Math.floor(Math.random() * 300);
+      botaoNao.style.position = "absolute";
+      botaoNao.style.top = `${i}px`;
+      botaoNao.style.left = `${j}px`;
+    });
+  </script>
+</body>
+</html>
