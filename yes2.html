@@ -8,27 +8,104 @@
 <body>
   <div class="container">
     <a href="https://ibb.co/BVKWNgck"><img src="https://i.ibb.co/BVKWNgck/Whats-App-Image-2025-05-27-at-14-12-50.jpg" alt="Whats-App-Image-2025-05-27-at-14-12-50" border="0"></a>
-    <h1>SEMANA QUE VEM NÉ? 😑 NÉ?</h1>
+    <h1>SEMANA QUE VEM NÉ 😑?</h1>
     <div class="buttons">
       <button onclick="final()">Prometo!</button>
       <button id="nao2">Não posso prometer...</button>
     </div>
   </div>
+<canvas id="fireworksCanvas" style="position: fixed; top: 0; left: 0; pointer-events: none; z-index: 9999;"></canvas>
+<script>
+  const botaoNao = document.getElementById('nao2');
+  const imagem = document.querySelector("img");
+  const titulo = document.querySelector("h1");
 
-  <script>
-    function final() {
-      alert('Você é a melhor pessoa do mundo, TE AMAMOS! 💖');
+  botaoNao.addEventListener('mouseover', () => {
+    const i = Math.floor(Math.random() * 300);
+    const j = Math.floor(Math.random() * 300);
+    botaoNao.style.position = "absolute";
+    botaoNao.style.top = `${i}px`;
+    botaoNao.style.left = `${j}px`;
+  });
+
+  function final() {
+    // 🖼️ Muda imagem
+      imagem.src = "https://i.ibb.co/VcFrBwP0/Whats-App-Image-2025-05-27-at-16-55-08.jpg";
+      imagem.parentElement.href = "https://ibb.co/hJGh8Ytx";
+      document.querySelector('.buttons').style.display = 'none';
+    titulo.innerText = "Agora é oficial! Guarapari que nos aguarde! 🎉🐾";
+
+    // 🎆 Começa os fogos
+    startFireworks();
+  }
+
+  function startFireworks() {
+    const canvas = document.getElementById('fireworksCanvas');
+    const ctx = canvas.getContext('2d');
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const particles = [];
+
+    function createParticle(x, y, color) {
+      const angle = Math.random() * 2 * Math.PI;
+      const speed = Math.random() * 5 + 2;
+      return {
+        x,
+        y,
+        color,
+        radius: Math.random() * 3 + 1,
+        dx: Math.cos(angle) * speed,
+        dy: Math.sin(angle) * speed,
+        alpha: 1
+      };
     }
 
-    const botaoNao = document.getElementById('nao2');
+    function explode(x, y) {
+      const colors = ['#ff5050', '#ffd700', '#00ccff', '#ff66cc', '#66ff66'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      for (let i = 0; i < 50; i++) {
+        particles.push(createParticle(x, y, color));
+      }
+    }
 
-    botaoNao.addEventListener('mouseover', () => {
-      const i = Math.floor(Math.random() * 300);
-      const j = Math.floor(Math.random() * 300);
-      botaoNao.style.position = "absolute";
-      botaoNao.style.top = `${i}px`;
-      botaoNao.style.left = `${j}px`;
-    });
-  </script>
+    function updateParticles() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.dx;
+        p.y += p.dy;
+        p.dy += 0.05;
+        p.alpha -= 0.01;
+        if (p.alpha <= 0) {
+          particles.splice(i, 1);
+        } else {
+          ctx.globalAlpha = p.alpha;
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI);
+          ctx.fillStyle = p.color;
+          ctx.fill();
+        }
+      }
+    }
+
+    function loop() {
+      updateParticles();
+      requestAnimationFrame(loop);
+    }
+
+    let duration = 3000;
+    const interval = setInterval(() => {
+      explode(Math.random() * canvas.width, Math.random() * canvas.height);
+    }, 300);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      alert('Você é a melhor pessoa do mundo, TE AMAMOS! 💖');
+    }, duration);
+
+    loop();
+  }
+</script>
 </body>
 </html>
